@@ -5,6 +5,7 @@ import Doctors from './pages/Doctors'
 import Login from './pages/Login'
 import About from './pages/About'
 import Contact from './pages/Contact'
+import MyProfile from './pages/MyProfile'
 
 const App = () => {
   return (
@@ -16,6 +17,8 @@ const App = () => {
         <Route path='/login' element={<Login/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<Contact/>}/>
+        <Route path='/my-profile' element={<MyProfile/>}/>
+
       </Routes>
     </div>
   )
