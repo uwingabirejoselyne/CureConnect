@@ -3,10 +3,31 @@
     --bg-primary: #5f6fff;
 }
 
+
+/* ✅ Apply the custom primary background color */
+
+.bg-primary {
+    background-color: var(--bg-primary);
+}
+
+
+/* ✅ Correct usage of @apply */
+
 .active hr {
     @apply block;
 }
 
+
+/* ✅ Hide scrollbar properly */
+
 ::-webkit-scrollbar {
     @apply hidden;
+}
+
+
+/* ✅ Custom CSS class for grid-template-columns */
+
+.grid-cols-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
