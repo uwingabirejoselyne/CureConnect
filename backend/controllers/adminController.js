@@ -1,5 +1,8 @@
 const validator = require('validator')
 const bcrypt = require('bcrypt');
+const cloudinary = require('cloudinary').v2;
+const doctorModel = require('../models/doctorModel')
+
 
 const addDoctor = async (req, res) => {
     try {
@@ -18,6 +21,13 @@ const addDoctor = async (req, res) => {
 
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password,salt)
+
+        const imageUpload = await cloudinary.uploader.upload(imageFile.path,{resource_type:"image"})
+        const imageUrl = imageUpload.secure_url
+
+        const doctorData = {
+            name
+        }
 
         res.status(201).json({ message: "Doctor added successfully" });
     } catch (error) {
