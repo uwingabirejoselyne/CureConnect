@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 import { Routes,Route } from 'react-router-dom';
 import Dashboard from './pages/Admin/Dashboard';
+import AllApointments from './pages/Admin/AllApointments';
 
 
 
@@ -20,6 +21,9 @@ const App = () => {
         <SideBar/>
         <Routes>
           <Route path='/' element={<></>}/>
+          <Route path='/admin-dashboard' element={<Dashboard/>}/>
+          <Route path='/all-appointments' element={<AllApointments/>}/>
+          <Route path='/admin-dashboard' element={<Dashboard/>}/>
           <Route path='/admin-dashboard' element={<Dashboard/>}/>
         </Routes>
       </div>
