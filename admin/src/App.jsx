@@ -9,7 +9,7 @@ import NavBar from './components/NavBar';
 const App = () => {
   const {aToken} = useContext(AdminContext)
   return aToken ? (
-    <div >
+    <div className='bg-[#f8f9fd]' >
       <ToastContainer/>
       <NavBar/>
     </div>
