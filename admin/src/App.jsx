@@ -9,6 +9,7 @@ import { Routes,Route } from 'react-router-dom';
 import Dashboard from './pages/Admin/Dashboard';
 import AllApointments from './pages/Admin/AllApointments';
 import AddDoctor from './pages/Admin/AddDoctor';
+import DoctorList from './pages/Admin/DoctorList';
 
 
 
@@ -24,8 +25,9 @@ const App = () => {
           <Route path='/' element={<></>}/>
           <Route path='/admin-dashboard' element={<Dashboard/>}/>
           <Route path='/all-appointments' element={<AllApointments/>}/>
-          <Route path='/admin-dashboard' element={<Dashboard/>}/>
           <Route path='/add-doctor' element={<AddDoctor/>}/>
+          <Route path='/doctor-list' element={<DoctorList/>}/>
+
         </Routes>
       </div>
     </div>
