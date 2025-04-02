@@ -45,6 +45,15 @@ const AddDoctor = () => {
       
       if(data.success){
         toast.success(data.message)
+        setDocImg(false)
+        setName('')
+        setEmail('')
+        setPassword('')
+        setAddress1('')
+        setAddress2('')
+        setAbout('')
+        setDegree('')
+        setFees('')
       }
       else{
         toast.error(data.message)
@@ -81,11 +90,11 @@ const AddDoctor = () => {
             </div>
             <div className='w-full flex-1 flex flex-col gap-1'>
               <p>Doctor Email</p>
-              <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" placeholder='Name' required />
+              <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" placeholder='Email' required />
             </div>
             <div className='w-full flex-1 flex flex-col gap-1'>
               <p>Doctor Password</p>
-              <input onChange={(e)=>setPassword(e.target.value)} value={password} className='border rounded px-3 py-2' type="password" placeholder='Name' required />
+              <input onChange={(e)=>setPassword(e.target.value)} value={password} className='border rounded px-3 py-2' type="password" placeholder='Password' required />
             </div>
             <div className='w-full flex-1 flex flex-col gap-1'>
               <p>experience</p>
