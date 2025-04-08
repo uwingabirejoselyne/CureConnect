@@ -1,4 +1,5 @@
 import validator from 'validator'
+import bcrypt from 'bcrypt'
 
 const registerUser = async(req,res)=>{
     try {
@@ -13,6 +14,9 @@ const registerUser = async(req,res)=>{
             return res.json({success:false,message:"Enter a strong password"})
 
         }
+
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password,salt)
     } catch (error) {
         
     }
