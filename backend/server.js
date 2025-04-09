@@ -4,6 +4,7 @@ require('dotenv').config();
 const connectDb = require('./config/mongodb');
 const adminRouter = require('./routes/adminRoute');
 const doctorRouter = require('./routes/doctorRoute')
+const userRouter = require('./routes/userRoute')
 require('./config/cloudinary');
 const path = require('path');
 
@@ -19,6 +20,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/admin',adminRouter)
 app.use('/api/doctor',doctorRouter)
+app.use('/api/user',userRouter)
 
 app.get('/',(req,res)=>{
     res.send("Api working")
