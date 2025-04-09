@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 const registerUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
+        console.log(name,email,password);
+        
 
         if (!name || !password || !email) {
             return res.json({ success: false, message: "Missing Details" });
@@ -45,7 +47,7 @@ const loginUser = async(req,res) =>{
         const {email,password} = req.body
         const user = await User.findOne({email})
         if(!user){
-            res.json({success:false,message:"User does not exist"})
+            return res.json({success:false,message:"User does not exist"})
         }
         const isMatch = await bcrypt.compare(password,user.password)
         if(isMatch){

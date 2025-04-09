@@ -1,7 +1,7 @@
 import { createContext, useEffect,useState } from "react";
 import { doctors } from "../assets/assets/assets";
 import axios from "axios"
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify'
 
 export const AppContext = createContext();
 
@@ -9,11 +9,8 @@ const AppContextProvider = (props) =>{
     const currentSymbol ='$'
     const backendUrl = import.meta.env.VITE_BACKEND_URL 
     const[doctors,setDoctors] = useState([])
+    const[token,setToken] = useState('')
 
-    const value = {
-        doctors,
-        currentSymbol
-    }
     const getDoctorsData = async()=>{
         try {
             const{data} = await axios.get(backendUrl + '/api/doctor/list')
@@ -28,6 +25,13 @@ const AppContextProvider = (props) =>{
             toast.error(error.message)
             
         }
+    }
+
+    const value = {
+        doctors,
+        currentSymbol,
+        token,setToken,
+        backendUrl
     }
     useEffect(()=>{
         getDoctorsData()
