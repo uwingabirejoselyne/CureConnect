@@ -1,7 +1,6 @@
-// backend/controllers/userController.js
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-const User = require('../models/userModel'); // this line changed
+const User = require('../models/userModel'); 
 const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res) => {
@@ -62,4 +61,15 @@ const loginUser = async(req,res) =>{
         res.json({ success: false, message: error.message });
     }
 }
-module.exports = { registerUser,loginUser };
+
+const getProfile = async(req,res)=>{
+    try {
+        const {userId} = req.body
+        const userData = await User.find(userId).select('-password')
+        res.json({success:true,userData})
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+module.exports = { registerUser,loginUser,getProfile };
