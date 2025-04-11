@@ -65,7 +65,7 @@ const loginUser = async(req,res) =>{
 const getProfile = async(req,res)=>{
     try {
         const {userId} = req.body
-        const userData = await User.find(userId).select('-password')
+        const userData = await User.findById(userId).select('-password')
         res.json({success:true,userData})
     } catch (error) {
         console.log(error);
