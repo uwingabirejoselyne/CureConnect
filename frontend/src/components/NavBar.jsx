@@ -7,7 +7,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const { token, setToken } = useContext(AppContext);
+  const { token, setToken,userData } = useContext(AppContext);
 
   const logout = () => {
     setToken(false);
@@ -44,10 +44,11 @@ const NavBar = () => {
 
       {/* Profile & Mobile Menu Icon */}
       <div className="flex items-center gap-4 relative">
-        {token ? (
+        {token && userData ? (
           <div className="relative">
             <img
-              src={assets.profile_pic}
+              // src={assets.profile_pic}
+              src={userData.image}
               className="w-8 rounded-full cursor-pointer"
               alt="Profile"
               onClick={() => setShowDropdown((prev) => !prev)}
