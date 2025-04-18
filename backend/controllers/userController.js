@@ -100,7 +100,7 @@ const updateProfile = async(req,res)=>{
     }
 }
 
-const bookingDoctor = async(req,res)=>{
+const bookingAppointment = async(req,res)=>{
     try {
         const {userId,docId,slotTime,slotDate} = req.body
         const docData = await Doctor.findById(docId).select('-password')
@@ -143,4 +143,4 @@ const bookingDoctor = async(req,res)=>{
         
     }
 }
-module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingDoctor };
+module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingAppointment };
