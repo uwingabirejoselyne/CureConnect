@@ -6,6 +6,7 @@ const cloudinary = require('cloudinary').v2;
 const Doctor = require('../models/doctorModel')
 const appointmentModel = require('../models/appointmentModel');
 const doctorModel = require('../models/doctorModel');
+const Appointment = require('../models/appointmentModel');
 
 
 const registerUser = async (req, res) => {
@@ -150,5 +151,15 @@ const bookingAppointment = async (req, res) => {
       return res.status(500).json({ success: false, message: 'Something went wrong', error: error.message });
     }
   };
-  
-module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingAppointment };
+
+const listAppointment  = async(req,res) =>{
+try {
+    const {userId} = req.body
+    const appointnments = await Appointment.find({userId})
+    return res.json({success:true,appointnments})
+} catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+}
+}
+module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingAppointment,listAppointment };
