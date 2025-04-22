@@ -71,7 +71,6 @@ const getProfile = async(req,res)=>{
     try {
         const {userId} = req.body
         const userData = await User.findById(userId).select('-password')
-        console.log(userData);
         
         res.json({success:true,userData})
     } catch (error) {
@@ -100,47 +99,56 @@ const updateProfile = async(req,res)=>{
     }
 }
 
-const bookingAppointment = async(req,res)=>{
+const bookingAppointment = async (req, res) => {
     try {
-        const {userId,docId,slotTime,slotDate} = req.body
-        const docData = await Doctor.findById(docId).select('-password')
-        if(docData.available){
-            return res.json({success:'false',message:'Doctor not available'})
+      const { userId, docId, slotTime, slotDate } = req.body;
+  
+      const docData = await Doctor.findById(docId).select('-password');
+      if (!docData) return res.status(404).json({ success: false, message: 'Doctor not found' });
+  
+      if (!docData.available) {
+        return res.json({ success: false, message: 'Doctor not available' });
+      }
+  
+      let slots_booked = docData.slots_booked || {};
+  
+      if (slots_booked[slotDate]) {
+        if (slots_booked[slotDate].includes(slotTime)) {
+          return res.json({ success: false, message: 'Slot not available' });
+        } else {
+          slots_booked[slotDate].push(slotTime);
         }
-        let slots_booked = docData.slots_booked
-        if(slots_booked[slotDate]){
-            if(slots_booked[slotDate].includes(slotTime)){
-             return res.json({success:'false',message:'slot not available'})
-            }
-            else{
-                slots_booked[slotDate].push(slotTime)
-            }
-        }
-        else{
-            slots_booked[slotDate] = []
-            slots_booked[slotDate].push(slotTime)
-        }
-
-        const userData = await User.findById(userId).select('-password')
-        delete docData.slots_booked
-
-        const appointmentData = {
-            userId,
-            docId,
-            userData,
-            docData,
-            amount:docData.fees,
-            slotTime,
-            slotDate,
-            date:Date.now()
-        }
-        const newAppointment = new appointmentModel(appointmentData)
-        await newAppointment.save()
-
-        await doctorModel.findByIdAndUpdate(docId,{slots_booked})
-        res.json({success:true,message:'appointment booked'})
+      } else {
+        slots_booked[slotDate] = [slotTime];
+      }
+  
+      const userData = await User.findById(userId).select('-password');
+      if (!userData) return res.status(404).json({ success: false, message: 'User not found' });
+  
+      delete docData.slots_booked;
+  
+      const appointmentData = {
+        userId,
+        docId,
+        userData,
+        docData,
+        amount: docData.fees,
+        slotTime,
+        slotDate,
+        date: Date.now(),
+      };
+  
+      const newAppointment = new appointmentModel(appointmentData);
+      await newAppointment.save();
+  
+      await Doctor.findByIdAndUpdate(docId, { slots_booked });
+  
+      return res.json({ success: true, message: 'Appointment booked successfully!' });
+  
     } catch (error) {
-        
+      console.error(error);
+      return res.status(500).json({ success: false, message: 'Something went wrong', error: error.message });
     }
-}
+  };
+  
 module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingAppointment };

@@ -4,19 +4,19 @@ const appointmentSchema = new mongoose.Schema({
     userId: { type: String, required: true },
     docId: { type: String, required: true },
     slotTime: { type: String, required: true },
-    SlotDate: { type: String, required: true}, 
+    slotDate: { type: String, required: true}, 
     userData: {type:Object, required: true},
-    DocData: {type:Object, required: true},
+    docData: {type:Object, required: true},
     amount: {type: String, required: true},
     date: {type: String, required: true},
     date: {type: String, required: true},
-    cancelled: {type: Boalean,default: false},
-    payment: {type: Boalean,default: false},
-    isCompleted: {type: Boalean,default: false}
+    cancelled: {type: Boolean ,default: false},
+    payment: {type: Boolean,default: false},
+    isCompleted: {type: Boolean,default: false}
     
 
 }, { timestamps: true });
 
-const Appointment = mongoose.model('User', appointmentSchema);
+const Appointment = mongoose.model('Appointment', appointmentSchema);
 
 module.exports = Appointment;
