@@ -152,7 +152,7 @@ const bookingAppointment = async (req, res) => {
     }
   };
 
-const listAppointment  = async(req,res) =>{
+const listAppointments  = async(req,res) =>{
 try {
     const {userId} = req.body
     const appointnments = await Appointment.find({userId})
@@ -162,4 +162,4 @@ try {
     res.json({ success: false, message: error.message });
 }
 }
-module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingAppointment,listAppointment };
+module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingAppointment,listAppointments };
