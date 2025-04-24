@@ -176,6 +176,7 @@ try {
     let slots_booked = doctorData.slots_booked
     slots_booked[slotDate] = slots_booked[slotDate].filter(e =>e!==slotTime)
     await doctorModel.findByIdAndUpdate(docId,{slots_booked})
+    res.json({succes:true,message:'Appointment cancelled'})
 } catch (error) {
     console.log(error);
     toast.error(error.message)
