@@ -162,4 +162,18 @@ try {
     res.json({ success: false, message: error.message });
 }
 }
-module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingAppointment,listAppointments };
+
+const cancelAppointnment = async(req,res) =>{
+try {
+    const { userId, appointmentId} = req.body
+    const appointmentData = await appointmentModel.findById(appointmentId)
+    if(appointmentData.userId !== userId){
+        return res.json({success:false,message:'unauthorized action'})
+    }
+} catch (error) {
+    console.log(error);
+    toast.error(error.message)
+    
+}
+}
+module.exports = { registerUser,loginUser,getProfile,updateProfile,bookingAppointment,listAppointments,cancelAppointnment };
